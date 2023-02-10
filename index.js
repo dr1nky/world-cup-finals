@@ -21,12 +21,13 @@ axios(url)
       return $(this).text().trim();
     }).toArray();
 
+
     headers = headers.slice(0, 7);
 
     let years = table.find('tbody').map(function() {
       let cells = $(this).find('th').map(function() {
         return $(this).text().trim();
-      }).toArray().slice(8, -11);
+      }).toArray().slice(8, -10);
       return [cells];
     }).toArray();
 
@@ -36,7 +37,7 @@ axios(url)
       }).toArray();
       cells = cells.slice(0, -1);
       return [cells];
-    }).toArray().slice(1, -4);
+    }).toArray().slice(1, -3);
 
     for (let i = 0; i < years.length; i++) {
       for (let j = 0; j < data.length; j++) {
@@ -46,16 +47,16 @@ axios(url)
 
     result.push(headers, data, title);
 
-    // const finals = result[1].forEach(el => {
-    //   let year = el[0];
-    //   let winners = el[1];
-    //   let score = el[2];
-    //   let runners_up = el[3];
-    //   let venue = el[4];
-    //   let location = el[5];
-    //   let attendance = el[6];
-    //   console.log({year, winners, score, runners_up, venue, location, attendance})
-    // });
+    const finals = result[1].forEach(el => {
+      let year = el[0];
+      let winners = el[1];
+      let score = el[2];
+      let runners_up = el[3];
+      let venue = el[4];
+      let location = el[5];
+      let attendance = el[6];
+      console.log({year, winners, score, runners_up, venue, location, attendance})
+    });
 
   }).catch(err => console.log(err));
 
