@@ -24,7 +24,7 @@ axios(url)
 
     headers = headers.slice(0, 7);
 
-    // remove square brackets and numbers between 
+    // remove square brackets and the numbers between 
     const score = headers[2].replace(/[\[\],[0-9]+/g,'');
 
     // add modified header back into array
