@@ -1,6 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const express = require('express');
+const fs = require('fs');
 
 const app = express();
 
@@ -21,8 +22,13 @@ axios(url)
       return $(this).text().trim();
     }).toArray();
 
-
     headers = headers.slice(0, 7);
+
+    // remove square brackets and numbers between 
+    const score = headers[2].replace(/[\[\],[0-9]+/g,'');
+
+    // add modified header back into array
+    headers.splice(2, 1, score);
 
     let years = table.find('tbody').map(function() {
       let cells = $(this).find('th').map(function() {
@@ -47,16 +53,16 @@ axios(url)
 
     result.push(headers, data, title);
 
-    const finals = result[1].forEach(el => {
-      let year = el[0];
-      let winners = el[1];
-      let score = el[2];
-      let runners_up = el[3];
-      let venue = el[4];
-      let location = el[5];
-      let attendance = el[6];
-      console.log({year, winners, score, runners_up, venue, location, attendance})
-    });
+    // const finals = result[1].forEach(el => {
+    //   let year = el[0];
+    //   let winners = el[1];
+    //   let score = el[2];
+    //   let runners_up = el[3];
+    //   let venue = el[4];
+    //   let location = el[5];
+    //   let attendance = el[6];
+    //   console.log({year, winners, score, runners_up, venue, location, attendance});
+    // });
 
   }).catch(err => console.log(err));
 
